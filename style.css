@@ -1,0 +1,41 @@
+body {
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+}
+
+.input {
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 10px;
+  width: 250px;
+  height: 300px;
+  padding: 20px;
+}
+
+.input > h2 {
+  margin: 0 0 25px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.form-row {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+input {
+  margin-left: auto;
+}
+
+.form-row:nth-child(4),
+.form-row:last-child {
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button {
+  width: 80px;
+  height: 30px;
+  margin-top: 10px;
+}
