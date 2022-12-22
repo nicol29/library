@@ -17,9 +17,18 @@ function Book(title, author, pages, isRead) {
   this.isRead = isRead;
 }
 
+Book.prototype.changeReadStatus = function () {
+  if (this.isRead === false) {
+    this.isRead = true;
+  } else {
+    this.isRead = false;
+  }
+};
+
 function displayBooks() {
   const outputBookDiv = document.createElement('div');
   outputBookDiv.classList.add('output');
+  outputBookDiv.dataset.index = numberOfBooks;
 
   const titleH2 = document.createElement('h2');
   titleH2.innerText = myLibrary[numberOfBooks].title;
@@ -41,8 +50,16 @@ function displayBooks() {
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('deleteButton');
   deleteButton.innerText = 'Remove';
-  deleteButton.dataset.index = numberOfBooks;
 
+  const readButton = document.createElement('button');
+  readButton.classList.add('readButton');
+  if (myLibrary[numberOfBooks].isRead) {
+    readButton.innerText = 'Read';
+  } else {
+    readButton.innerText = 'Not Read';
+  }
+
+  buttonDiv.appendChild(readButton);
   buttonDiv.appendChild(deleteButton);
   outputBookDiv.appendChild(buttonDiv);
   booksContainer.appendChild(outputBookDiv);
@@ -77,9 +94,21 @@ submitButton.addEventListener('click', () => {
 
 booksContainer.addEventListener('click', (e) => {
   if (e.target.classList.value === 'deleteButton') {
-    myLibrary.splice(e.target.dataset.index, 1);
+    const indexToDelete = e.target.parentNode.parentNode.dataset.index;
+    myLibrary.splice(indexToDelete, 1);
     e.target.parentNode.parentNode.remove();
 
     numberOfBooks -= 1;
+  } else if (e.target.classList.value === 'readButton') {
+    const indexToChange = e.target.parentNode.parentNode.dataset.index;
+    myLibrary[indexToChange].changeReadStatus();
+
+    if (myLibrary[indexToChange].isRead) {
+      e.target.innerText = 'Read';
+    } else {
+      e.target.innerText = 'Not Read';
+    }
+
+    e.target.parentNode.previousSibling.innerText = `Finshed Reading: ${myLibrary[indexToChange].isRead}`;
   }
 });
