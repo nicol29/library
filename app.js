@@ -37,6 +37,14 @@ function displayBooks() {
   divRead.innerText = `Finshed Reading: ${myLibrary[numberOfBooks].isRead}`;
   outputBookDiv.appendChild(divRead);
 
+  const buttonDiv = document.createElement('div');
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('deleteButton');
+  deleteButton.innerText = 'Remove';
+  deleteButton.dataset.index = numberOfBooks;
+
+  buttonDiv.appendChild(deleteButton);
+  outputBookDiv.appendChild(buttonDiv);
   booksContainer.appendChild(outputBookDiv);
 
   numberOfBooks += 1;
@@ -65,4 +73,13 @@ submitButton.addEventListener('click', () => {
   authorInput.value = '';
   pagesInput.value = '';
   checkboxInput.checked = false;
+});
+
+booksContainer.addEventListener('click', (e) => {
+  if (e.target.classList.value === 'deleteButton') {
+    myLibrary.splice(e.target.dataset.index, 1);
+    e.target.parentNode.parentNode.remove();
+
+    numberOfBooks -= 1;
+  }
 });
