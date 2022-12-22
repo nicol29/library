@@ -1,9 +1,11 @@
 const submitButton = document.querySelector('.submit-button');
+const addBookButton = document.querySelector('.add > button');
 const titleInput = document.querySelector('#title');
 const authorInput = document.querySelector('#author');
 const pagesInput = document.querySelector('#pages');
 const checkboxInput = document.querySelector('#read');
 const booksContainer = document.querySelector('.grid-container');
+const divBook = document.querySelector('.input');
 
 const myLibrary = [];
 let numberOfBooks = 0;
@@ -38,14 +40,17 @@ function displayBooks() {
   booksContainer.appendChild(outputBookDiv);
 
   numberOfBooks += 1;
-  // myLibrary.forEach((book) => console.log(book));
 }
+
+addBookButton.addEventListener('click', () => {
+  divBook.style.display = 'block';
+});
 
 function addBookToLibrary(title, author, pages, isRead) {
   myLibrary[numberOfBooks] = new Book(title, author, pages, isRead);
 
   displayBooks();
-  // console.log(myLibrary);
+  divBook.style.display = 'none';
 }
 
 submitButton.addEventListener('click', () => {
